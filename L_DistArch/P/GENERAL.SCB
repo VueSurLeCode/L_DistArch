@@ -169,8 +169,6 @@ Sub UserReload()
     Dim LoadCmd         As Str;
     Dim VarRunningMode  As Str;
     Dim RunningMode     As Single;
-    Dim RunService      As Single;
-    Dim RunRDS          As Single;
     Dim strConcatArg 	As Str;
 
     '-----------------------------------
@@ -191,21 +189,6 @@ Sub UserReload()
     ' Reset USER_RELOAD variable to 0
     Set(GetArg("VARNAME"), 0);
     Sendlist("BLOC");
-
-    '-----------------------------------
-    ' Running mode update
-    '-----------------------------------
-    'VarRunningMode = ADDSTRING("LAN.", @SYSTEM.STATION_NAME, ".RUNNINGMODE");
-
-    'RunService = TOS(@System.LocalHost.Environment.RunningAsService);
-    'RunRDS     = TOS(@System.LocalHost.Environment.RunningInRemoteDesktopSession);
-
-    ' Encode mode:
-    '   1 = Console
-    '   2 = Service
-    '   3 = RDS
-    'RunningMode = (1 + (RunService * 1) + (RunRDS * 2));
-    '?VarRunningMode = RunningMode;
 
 End Sub
 
@@ -640,9 +623,7 @@ Sub LogUser()
 	Dim varTrigger as Str;
 	Dim varRunningMode as Str;
 	Dim RunningMode as Single;
-
-	' Check if this station is active in the real-time association
-	IF (@System.ASSOC_RT.LocalHost == 1) Then  					
+			
 	
 		'Retrieve branch passed as argument
         currBrch = GETARG("BRANCH");
@@ -651,7 +632,7 @@ Sub LogUser()
 		varLogin       = ADDSTRING(currBrch, ".LOGIN"); 		
 		varLogout      = ADDSTRING(currBrch, ".LOGOUT"); 		
 		varOnline      = ADDSTRING(currBrch, ".ONLINE"); 	
-		varUser        = ADDSTRING(currBrch, ".USER");
+		varUser        = ADDSTRING(currBrch, ".UserConnected");
 		varRunningMode = ADDSTRING(currBrch, ".RUNNINGMODE");
 		varStation     = VARIABLE("TATT",varOnline,3);
 
@@ -661,7 +642,7 @@ Sub LogUser()
         '---------------------------------------
         ' User LOGIN case
         '---------------------------------------		
-        IF ((LEN(strVarUser) > 1)) Then
+        IF ((CmpString(strVarUser, "DEFUSER") != 0)) Then
 
 			VARIABLE("SETTATT", VarLogin, 3, strVarUser);
 			VARIABLE("SETTATT", VarLogin, 4, varStation);
@@ -670,8 +651,8 @@ Sub LogUser()
             IF (RunningMode == 2) THEN VARIABLE("SETTATT", varLogin, 5, "SERVICE"); END IF
             IF (RunningMode == 3) THEN VARIABLE("SETTATT", varLogin, 5, "RDS");     END IF
 
-			TRACE("LOG",(ADDSTRING("--- REMOTE TRACE LOGIN --- ",varLogin, " - ", strVarUser)));
-			CYCLIC("ADDPROG", 1,"L_DistArch/GENERAL.SCB", currBrch, "ResetTrigger", "LOGIN" );
+			TRACE("LOG",(ADDSTRING("--- REMOTE TRACE LOGIN --- ", varLogin, " - ", strVarUser)));
+			CYCLIC("ADDPROG", 1, "L_DistArch/GENERAL.SCB", currBrch, "ResetTrigger", "LOGIN" );
 			?VarLogin = (1);
 
         '---------------------------------------
@@ -686,13 +667,11 @@ Sub LogUser()
             IF (RunningMode == 2) THEN VARIABLE("SETTATT", varLogout, 5, "SERVICE"); END IF
             IF (RunningMode == 3) THEN VARIABLE("SETTATT", varLogout, 5, "RDS");     END IF
             		
-			TRACE("LOG",(ADDSTRING("--- REMOTE TRACE LOGOFF --- ",varLogout, " - ", strVarUser)));
-			CYCLIC("ADDPROG", 1,"L_DistArch/GENERAL.SCB", currBrch, "ResetTrigger", "LOGOUT" );
+			TRACE("LOG",(ADDSTRING("--- REMOTE TRACE LOGOFF --- ", varLogout, " - ", strVarUser)));
+			CYCLIC("ADDPROG", 1, "L_DistArch/GENERAL.SCB", currBrch, "ResetTrigger", "LOGOUT" );
 			?varLogout = (1);
 
 		END IF
-
-	END IF
 
 End Sub
 
@@ -725,7 +704,7 @@ Sub ResetTrigger()
 	varName=ADDSTRING(currBrch, ".",strArg1); 				
 	?varName = (0);
 
-	TRACE("LOG",(ADDSTRING("--- TRACE LOGINLOGOFF RESETTRIGGER --- ",varName)));
+	TRACE("LOG",(ADDSTRING("--- TRACE LOGIN LOGOFF RESETTRIGGER --- ",varName)));
 	
 End Sub
 

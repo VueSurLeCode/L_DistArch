@@ -1,5 +1,7 @@
+
 Sub RefreshStationVariables()
 DIM Var as str;
+DIM Var2 as str;
 
 	Var = AddString("@System.", GetArg("ARG1"), ".Resource.FreeVirtualMemory");
 	FreeVirtualMemory = ?Var;
@@ -34,8 +36,27 @@ DIM Var as str;
 	Var = AddString("@System.", GetArg("ARG1"), ".Version.Reference.LibraryIsNotCurrentRef");
 	LibraryIsNotCurrentRef = ?Var;
 
-
 End Sub
+
+    '-----------------------------------
+    ' Running mode update
+    '-----------------------------------
+Sub RefreshRunningMode()
+    Dim RunService      As Double;
+    Dim RunRDS          As Double;
+
+    RunService = TOD(@System.LocalHost.Environment.RunningAsService);
+    RunRDS     = TOD(@System.LocalHost.Environment.RunningInRemoteDesktopSession);
+
+    ' Encode mode:
+    '   1 = Console
+    '   2 = Service
+    '   3 = RDS
+    RunningMode = (1 + (RunService * 1) + (RunRDS * 2));
+	Print("Running mode = ", (1 + (RunService * 1) + (RunRDS * 2)));
+	CyclicRunModeActiveBit = 0;
+End Sub
+
 
 '---------------------------------------
 ' RT_Switch
