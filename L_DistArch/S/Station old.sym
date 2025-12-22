@@ -53,7 +53,7 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 		O,BEGIN,T,"Text2"
 			B,1095,651,1166,675,1095,651,1,0,6400,0,4,0,0,0,1,0,-1
 			ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-			PP,0,1095,651,0,0,FONT,1,"Carte 1",36,FONT,1,"Card 1",37
+			PP,0,1095,651,0,0,FONT,1,"Card 1",36,FONT,1,"Carte 1",36
 			A,BEGIN,VVE,"Anim1",0,0,"","","0", , 
 				PP,"STATION1C",1,0,2,0
 			A,END
@@ -71,8 +71,8 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 			O,BEGIN,T,"Text3"
 				B,1191,651,1206,675,1191,651,1,0,6400,0,8,0,0,0,1,0,-1
 				ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-				PP,0,1191,651,0,0,FONT,1,"S",36,FONT,1,"S",37
-				A,BEGIN,CB,"Anim1",0,0,"@Connexion serveur","@Server connection","0", , 
+				PP,0,1191,651,0,0,FONT,1,"S",36,FONT,1,"S",36
+				A,BEGIN,CB,"Anim1",0,0,"@Server connection","@Connexion serveur","0", , 
 					PP,"STATION1S"
 					COL,0,COLOR,6,COLOR,6
 					COL,0,COLOR,7,COLOR,7
@@ -99,8 +99,8 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 			O,BEGIN,T,"Text4"
 				B,1227,651,1243,675,1227,651,1,0,6400,0,8,0,0,0,1,0,-1
 				ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-				PP,0,1227,651,0,0,FONT,1,"C",36,FONT,1,"C",37
-				A,BEGIN,CB,"Anim1",0,0,"@Connexion cliente","@Client connection","0", , 
+				PP,0,1227,651,0,0,FONT,1,"C",36,FONT,1,"C",36
+				A,BEGIN,CB,"Anim1",0,0,"@Client connection","@Connexion cliente","0", , 
 					PP,"STATION1S"
 					COL,0,COLOR,6,COLOR,6
 					COL,0,COLOR,7,COLOR,7
@@ -117,7 +117,7 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 		O,BEGIN,T,"Text5"
 			B,1095,651,1166,675,1095,651,1,0,6400,0,4,0,0,0,1,0,-1
 			ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-			PP,0,1095,651,0,0,FONT,1,"Carte 1",36,FONT,1,"Card 1",37
+			PP,0,1095,651,0,0,FONT,1,"Card 1",36,FONT,1,"Carte 1",36
 			A,BEGIN,VVE,"Anim1",0,0,"","","0", , 
 				PP,"STATION1S",1,0,2,0
 			A,END
@@ -222,7 +222,7 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 		O,BEGIN,T,"Text2"
 			B,1095,615,1166,639,1095,615,1,0,6400,0,4,0,0,0,1,0,-1
 			ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-			PP,0,1095,615,0,0,FONT,1,"Carte 0",36,FONT,1,"Card 0",37
+			PP,0,1095,615,0,0,FONT,1,"Card 0",36,FONT,1,"Carte 0",36
 			A,BEGIN,VVE,"Anim1",0,0,"","","0", , 
 				PP,"STATION0C",1,0,2,0
 			A,END
@@ -240,8 +240,8 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 			O,BEGIN,T,"Text3"
 				B,1191,615,1206,639,1191,615,1,0,6400,0,8,0,0,0,1,0,-1
 				ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-				PP,0,1191,615,0,0,FONT,1,"S",36,FONT,1,"S",37
-				A,BEGIN,CB,"Anim1",0,0,"@Connexion serveur","@Server connection","0", , 
+				PP,0,1191,615,0,0,FONT,1,"S",36,FONT,1,"S",36
+				A,BEGIN,CB,"Anim1",0,0,"@Server connection","@Connexion serveur","0", , 
 					PP,"STATION0S"
 					COL,0,COLOR,6,COLOR,6
 					COL,0,COLOR,7,COLOR,7
@@ -268,8 +268,8 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 			O,BEGIN,T,"Text4"
 				B,1227,615,1243,639,1227,615,1,0,6400,0,8,0,0,0,1,0,-1
 				ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-				PP,0,1227,615,0,0,FONT,1,"C",36,FONT,1,"C",37
-				A,BEGIN,CB,"Anim1",0,0,"@Connexion cliente","@Client connection","0", , 
+				PP,0,1227,615,0,0,FONT,1,"C",36,FONT,1,"C",36
+				A,BEGIN,CB,"Anim1",0,0,"@Client connection","@Connexion cliente","0", , 
 					PP,"STATION0S"
 					COL,0,COLOR,6,COLOR,6
 					COL,0,COLOR,7,COLOR,7
@@ -286,7 +286,7 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 		O,BEGIN,T,"Text5"
 			B,1095,615,1166,639,1095,615,1,0,6400,0,4,0,0,0,1,0,-1
 			ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-			PP,0,1095,615,0,0,FONT,1,"Carte 0",36,FONT,1,"Card 0",37
+			PP,0,1095,615,0,0,FONT,1,"Card 0",36,FONT,1,"Carte 0",36
 			A,BEGIN,VVE,"Anim1",0,0,"","","0", , 
 				PP,"STATION0S",1,0,2,0
 			A,END
@@ -297,7 +297,7 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 		O,BEGIN,T,"Text2"
 			B,1095,687,1166,711,1095,687,1,0,6400,0,4,0,0,0,1,0,-1
 			ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-			PP,0,1095,687,0,0,FONT,1,"Carte 1",36,FONT,1,"Card 2",37
+			PP,0,1095,687,0,0,FONT,1,"Card 2",36,FONT,1,"Carte 2",36
 			A,BEGIN,VVE,"Anim1",0,0,"","","0", , 
 				PP,"STATION2C",1,0,2,0
 			A,END
@@ -315,8 +315,8 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 			O,BEGIN,T,"Text3"
 				B,1191,687,1206,711,1191,687,1,0,6400,0,8,0,0,0,1,0,-1
 				ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-				PP,0,1191,687,0,0,FONT,1,"S",36,FONT,1,"S",37
-				A,BEGIN,CB,"Anim1",0,0,"@Connexion serveur","@Server connection","0", , 
+				PP,0,1191,687,0,0,FONT,1,"S",36,FONT,1,"S",36
+				A,BEGIN,CB,"Anim1",0,0,"@Server connection","@Connexion serveur","0", , 
 					PP,"STATION2S"
 					COL,0,COLOR,6,COLOR,6
 					COL,0,COLOR,7,COLOR,7
@@ -343,8 +343,8 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 			O,BEGIN,T,"Text4"
 				B,1227,687,1243,711,1227,687,1,0,6400,0,8,0,0,0,1,0,-1
 				ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-				PP,0,1227,687,0,0,FONT,1,"C",36,FONT,1,"C",37
-				A,BEGIN,CB,"Anim1",0,0,"@Connexion cliente","@Client connection","0", , 
+				PP,0,1227,687,0,0,FONT,1,"C",36,FONT,1,"C",36
+				A,BEGIN,CB,"Anim1",0,0,"@Client connection","@Connexion cliente","0", , 
 					PP,"STATION2S"
 					COL,0,COLOR,6,COLOR,6
 					COL,0,COLOR,7,COLOR,7
@@ -361,7 +361,7 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 		O,BEGIN,T,"Text5"
 			B,1095,687,1166,711,1095,687,1,0,6400,0,4,0,0,0,1,0,-1
 			ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-			PP,0,1095,687,0,0,FONT,1,"Carte 1",36,FONT,1,"Card 2",37
+			PP,0,1095,687,0,0,FONT,1,"Card 2",36,FONT,1,"Carte 2",36
 			A,BEGIN,VVE,"Anim1",0,0,"","","0", , 
 				PP,"STATION2S",1,0,2,0
 			A,END
@@ -372,7 +372,7 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 		O,BEGIN,T,"Text2"
 			B,1095,723,1166,747,1095,723,1,0,6400,0,4,0,0,0,1,0,-1
 			ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-			PP,0,1095,723,0,0,FONT,1,"Carte 1",36,FONT,1,"Card 3",37
+			PP,0,1095,723,0,0,FONT,1,"Card 3",36,FONT,1,"Carte 3",36
 			A,BEGIN,VVE,"Anim1",0,0,"","","0", , 
 				PP,"STATION3C",1,0,2,0
 			A,END
@@ -390,8 +390,8 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 			O,BEGIN,T,"Text3"
 				B,1191,723,1206,747,1191,723,1,0,6400,0,8,0,0,0,1,0,-1
 				ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-				PP,0,1191,723,0,0,FONT,1,"S",36,FONT,1,"S",37
-				A,BEGIN,CB,"Anim1",0,0,"@Connexion serveur","@Server connection","0", , 
+				PP,0,1191,723,0,0,FONT,1,"S",36,FONT,1,"S",36
+				A,BEGIN,CB,"Anim1",0,0,"@Server connection","@Connexion serveur","0", , 
 					PP,"STATION3S"
 					COL,0,COLOR,6,COLOR,6
 					COL,0,COLOR,7,COLOR,7
@@ -418,8 +418,8 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 			O,BEGIN,T,"Text4"
 				B,1227,723,1243,747,1227,723,1,0,6400,0,8,0,0,0,1,0,-1
 				ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-				PP,0,1227,723,0,0,FONT,1,"C",36,FONT,1,"C",37
-				A,BEGIN,CB,"Anim1",0,0,"@Connexion cliente","@Client connection","0", , 
+				PP,0,1227,723,0,0,FONT,1,"C",36,FONT,1,"C",36
+				A,BEGIN,CB,"Anim1",0,0,"@Client connection","@Connexion cliente","0", , 
 					PP,"STATION3S"
 					COL,0,COLOR,6,COLOR,6
 					COL,0,COLOR,7,COLOR,7
@@ -436,7 +436,7 @@ O,BEGIN,GRP,"Architecture_HISSERVER1_Base3"
 		O,BEGIN,T,"Text5"
 			B,1095,723,1166,747,1095,723,1,0,6400,0,4,0,0,0,1,0,-1
 			ST,0,1,COLOR,3,COLOR,3,0,0,COLOR,4,0,COLOR,4,0,COLOR,1,0,COLOR,1
-			PP,0,1095,723,0,0,FONT,1,"Carte 1",36,FONT,1,"Card 3",37
+			PP,0,1095,723,0,0,FONT,1,"Card 3",36,FONT,1,"Carte 3",36
 			A,BEGIN,VVE,"Anim1",0,0,"","","0", , 
 				PP,"STATION3S",1,0,2,0
 			A,END

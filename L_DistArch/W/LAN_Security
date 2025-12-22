@@ -4,7 +4,7 @@ W,BEGIN,"LAN_Security","Mimic1",""
 	POSITION,583,129
 	SIZE,836,334,836,334,0,0,0,1920,1080,816,291
 	BACKCOLOREX,255,255,255,0,0,0
-	TITLE,1,"Security Manager",""
+	TITLE,1,"Security Manager","Gestion de la s‚curit‚"
 	STYLE,1,1,1,1,0,1,0,1,0,1,1,1,1,0,0,1,0
 	GRIDEX,0,1,8,8,100,100,100,0,0,0
 	LAYERS,65535
@@ -35,12 +35,10 @@ VBA_REFERENCES,END
 FONTS,BEGIN
 	FONT,1,16,7,700,0,0,"System",0,0
 	FONT,2,-27,0,400,0,0,"Arial Rounded MT Bold",0,1
-	FONT,3,-19,0,400,0,0,"Arial",0,1
-	FONT,4,-19,0,400,0,0,"Arial Rounded MT Bold",0,1
-	FONT,5,-13,0,700,0,0,"Arial",0,1
-	FONT,6,-9,0,400,0,0,"Arial",0,1
-	FONT,7,-21,0,400,0,0,"Arial",0,1
-	FONT,8,-11,0,400,0,0,"Arial",0,1
+	FONT,3,-19,0,400,0,0,"Arial Rounded MT Bold",0,1
+	FONT,4,-13,0,700,0,0,"Arial",0,1
+	FONT,5,-9,0,400,0,0,"Arial",0,1
+	FONT,6,-11,0,400,0,0,"Arial",0,1
 FONTS,END
 COLORS,BEGIN
 	COLOREX,1,0,192,0,0,0,0
@@ -66,7 +64,7 @@ O,END
 O,BEGIN,T,"Text11"
 	B,59,6,321,38,-39,43,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,5,COLOR,5,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,59,6,0,0,FONT,2,"Security Manager",36,FONT,3,"XPOSIZIONE__________ ________________",37
+	PP,1,59,6,0,0,FONT,2,"Security Manager",36,FONT,2,"Gestion S‚curit‚",36
 O,END
 O,BEGIN,GRP,"Group1"
 	B,14,61,808,104,14,61,65535,0,6400,0,1,0,0,0,1,0,-1
@@ -80,12 +78,12 @@ O,BEGIN,GRP,"Group1"
 	O,BEGIN,T,"Text12"
 		B,24,65,363,88,153,88,65535,0,6400,0,2,0,0,0,1,0,-1
 		ST,0,1,COLOR,7,COLOR,7,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-		PP,1,24,65,0,0,FONT,4,"Change current password",84,FONT,3,"XPOSIZIONE__________ ________________",37
+		PP,1,24,65,0,0,FONT,3,"Change current password",84,FONT,3,"Changer le mot de passe",84
 	O,END
 	O,BEGIN,T,"Text13"
 		B,25,87,385,102,160,101,65535,0,6400,0,2,0,0,0,1,0,-1
 		ST,0,1,COLOR,7,COLOR,7,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-		PP,1,25,87,0,0,FONT,5,"Change the password of the current user loged in",84,FONT,3,"XPOSIZIONE__________ ________________",37
+		PP,1,25,87,0,0,FONT,4,"Change the password of the current user loged in",84,FONT,4,"Changer le mot de passe de l'utilisateur connect‚",84
 	O,END
 	A,BEGIN,VT,"Anim1",0,0,"","","0", , 
 		PP,4,"@System.LocalHost.User","",1,2,0,1,1,0,1,2,0
@@ -107,12 +105,12 @@ O,END
 O,BEGIN,T,"Text14"
 	B,24,115,363,138,321,130,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,7,COLOR,7,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,24,115,0,0,FONT,4,"Users and profiles manager",84,FONT,3,"XPOSIZIONE__________ ________________",37
+	PP,1,24,115,0,0,FONT,3,"Users and profiles manager",84,FONT,3,"Gestion des utilisateurs",84
 O,END
 O,BEGIN,T,"Text15"
-	B,25,137,584,152,234,151,65535,0,6400,0,1,0,0,0,1,0,-1
+	B,25,137,800,152,314,151,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,7,COLOR,7,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,25,137,0,0,FONT,5,"Manage users information, create new users or delete existing users",84,FONT,3,"XPOSIZIONE__________ ________________",37
+	PP,1,25,137,0,0,FONT,4,"Manage users information, create new users or delete existing users",84,FONT,4,"G‚rer les informations des utilisateurs, cr‚er de nouveaux utilisateurs ou supprimer des utilisateurs existants",84
 O,END
 O,BEGIN,R,"Shape21"
 	B,808,226,14,183,808,226,65535,0,6400,0,1,0,0,0,1,0,-1
@@ -124,12 +122,12 @@ O,END
 O,BEGIN,T,"Text16"
 	B,24,187,393,210,164,210,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,7,COLOR,7,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,24,187,0,0,FONT,4,"Security configuration distribution tool",84,FONT,3,"XPOSIZIONE__________ ________________",37
+	PP,1,24,187,0,0,FONT,3,"Security configuration distribution tool",84,FONT,3,"Outil de distribution de configurations de s‚curit‚",84
 O,END
 O,BEGIN,T,"Text17"
-	B,25,209,433,224,178,223,65535,0,6400,0,1,0,0,0,1,0,-1
+	B,25,209,688,224,273,223,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,7,COLOR,7,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,25,209,0,0,FONT,5,"Distribute over the network the security configuration files",84,FONT,3,"XPOSIZIONE__________ ________________",37
+	PP,1,25,209,0,0,FONT,4,"Distribute over the network the security configuration files",84,FONT,4,"Distribuer les fichiers de configuration de s‚curit‚ sur le r‚seau",84
 O,END
 O,BEGIN,BM,"Bitmap2"
 	B,8,0,55,47,8,47,65535,0,6400,0,1,0,0,0,1,0,-1
@@ -139,12 +137,12 @@ O,END
 O,BEGIN,T,"Text1"
 	B,670,0,734,19,670,0,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,10,COLOR,10,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,670,0,0,0,FONT,6,"Actual User:",38,FONT,7,"Actual User:",37
+	PP,1,670,0,0,0,FONT,5,"Actual User:",38,FONT,5,"Actual User:",38
 O,END
 O,BEGIN,T,"Text2"
 	B,726,0,814,19,726,0,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,10,COLOR,10,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,726,0,0,0,FONT,8,"Actual User:",38,FONT,7,"Actual User:",37
+	PP,1,726,0,0,0,FONT,6,"Actual User:",38,FONT,6,"Actual User:",38
 	A,BEGIN,DT,"Anim1",0,0,"","","0", , 
 		PP,"@User"
 	A,END
@@ -152,12 +150,12 @@ O,END
 O,BEGIN,T,"Text3"
 	B,670,14,734,33,670,14,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,10,COLOR,10,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,670,14,0,0,FONT,6,"Actual profile:",38,FONT,7,"Actual profile:",37
+	PP,1,670,14,0,0,FONT,5,"Actual profile:",38,FONT,5,"Actual profile:",38
 O,END
 O,BEGIN,T,"Text5"
 	B,726,14,814,33,726,14,65535,0,6400,0,1,0,0,0,1,0,-1
 	ST,0,1,COLOR,10,COLOR,10,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-	PP,1,726,14,0,0,FONT,8,"Actual Profile:",38,FONT,7,"Actual Profile:",37
+	PP,1,726,14,0,0,FONT,6,"Actual Profile:",38,FONT,6,"Actual Profile:",38
 	A,BEGIN,DT,"Anim1",0,0,"","","0", , 
 		PP,"@System.LocalHost.Profile"
 	A,END

@@ -4,7 +4,7 @@ W,BEGIN,"LAN_Log","Mimic1",""
 	POSITION,25,63
 	SIZE,1676,649,800,600,0,0,0,1920,1080,1656,606
 	BACKCOLOREX,240,240,240,0,0,0
-	TITLE,1,"Mimic1",""
+	TITLE,1,"Lan Log","Lan Log"
 	STYLE,1,1,1,1,0,1,0,1,1,1,1,1,1,0,0,0,0
 	GRIDEX,1,1,8,8,100,100,100,0,0,0
 	LAYERS,65535
@@ -55,11 +55,11 @@ O,BEGIN,LOG,"Log1"
 	BLINK,0
 	HEADER,1,22,6,271,271,271,271,271,271,0,0
 	TITLE,"Date","#D/#M/#Y","Date","#D/#M/#Y"
-	TITLE,"Time","#h:#m:#s","Time","#h:#m:#s.#l"
-	TITLE,"Evento","#T","Event","#E"
-	TITLE,"Username","#@A3","Title","#T"
-	TITLE,"Station","#@A4","",""
-	TITLE,"RunningMode","#@A5","",""
+	TITLE,"Time","#h:#m:#s","Time","#h:#m:#s"
+	TITLE,"Event","#T","Event","#T"
+	TITLE,"Username","#@A3","Username","#@A3"
+	TITLE,"Station","#@A4","Station","#@A4"
+	TITLE,"RunningMode","#@A5","RunningMode","#@A5"
 	TITLE,"","","",""
 	TITLE,"","","",""
 	LINE,FONT,2,COLOR,7,COLOR,6,1

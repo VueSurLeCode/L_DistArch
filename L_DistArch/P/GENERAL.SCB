@@ -356,7 +356,7 @@ End Sub
 '
 ' Notes:
 '   - Uses wav_player.exe located in library folder \TP\
-'   - Source code available on GitHub: https://github.com/lumi8/wav_player
+'   - Source code available on GitHub: https://github.com/VueSurLeCode/wav_player
 '   - Sound file: suonoalto.wav
 '---------------------------------------
 
