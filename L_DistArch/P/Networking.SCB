@@ -35,6 +35,9 @@ DIM Var2 as str;
 	LibraryIsNotCurrentPreRef = ?Var;
 	Var = AddString("@System.", GetArg("ARG1"), ".Version.Reference.LibraryIsNotCurrentRef");
 	LibraryIsNotCurrentRef = ?Var;
+	Var = AddString("@System.", GetArg("ARG1"), ".Environment.ProductVersion");
+	SV_VERS = ?Var;
+	
 
 End Sub
 

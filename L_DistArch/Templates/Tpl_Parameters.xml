@@ -10,17 +10,14 @@
 <DefaultValue>=Inst.FullBranch</DefaultValue>
 <EvaluationMode>1</EvaluationMode>
 </Parameter>
-<Parameter Name="pAllClient">
-<nDataType>0</nDataType>
-<nType>0</nType>
-<DefaultValue>ALLCLIENT</DefaultValue>
-<Empty>0</Empty>
-</Parameter>
 <Parameter Name="pAllServerList">
 <nDataType>0</nDataType>
 <nType>0</nType>
-<DefaultValue>ALLSERVER</DefaultValue>
+<DefaultValue/>
 <Empty>0</Empty>
+<SvPropertyValidation>true</SvPropertyValidation>
+<SvObjectType>1</SvObjectType>
+<SvPropertyName>ServerListName</SvPropertyName>
 </Parameter>
 <Parameter Name="pClientList">
 <nPType>1</nPType>
@@ -36,19 +33,11 @@
 <Parameter Name="pHServerList">
 <nDataType>0</nDataType>
 <nType>0</nType>
-<DefaultValue>SRV_LIST_HISTORICAL</DefaultValue>
-<Empty>0</Empty>
-</Parameter>
-<Parameter Name="pServerList">
-<nPType>1</nPType>
-<nDataType>0</nDataType>
-<nType>0</nType>
 <DefaultValue/>
-<GblOverwriteMode>0</GblOverwriteMode>
-<GblObjectType>1</GblObjectType>
-<GblPropertyName>ServerListName</GblPropertyName>
-<GblPropertyDefaultValue/>
-<GblFilters/>
+<Empty>0</Empty>
+<SvPropertyValidation>true</SvPropertyValidation>
+<SvObjectType>25</SvObjectType>
+<SvPropertyName>ServerListName</SvPropertyName>
 </Parameter>
 <Parameter Name="VarClientList">
 <nPType>1</nPType>

@@ -114,7 +114,7 @@ Sub Main()
 	
 	
     ' Schedule cyclic buzzer management
-    CYCLIC("ADDPROG", 15, "L_DistArch/GENERAL.SCB", "", "Buzzer");
+    'CYCLIC("ADDPROG", 15, "L_DistArch/GENERAL.SCB", "", "Buzzer");
 
     ' Delay loading of Main2() to allow system initialization
     CYCLIC("ADDPROG", 10, "L_DistArch/GENERAL.SCB", "", "Main2");
@@ -345,20 +345,23 @@ End Sub
 
 Sub Buzzer()
 
-	Dim ProjectPath as Str;
+	Dim PlayerPath as Str; 
+	Dim SoundPath as Str;
 	Dim VarEnBuzzer as Str;
 	Dim VarBuzzer as Str;
+	Dim ret as integer;
 
-	'VarEnBuzzer=ADDSTRING("LAN.",@SYSTEM.STATION_NAME,".EN_BUZZER");
-	'VarBuzzer=ADDSTRING("LAN.",@SYSTEM.STATION_NAME,".BUZZER");
+	VarEnBuzzer=ADDSTRING(GetArg("BRANCH"),".EN_BUZZER");
+	VarBuzzer=ADDSTRING(GetArg("BRANCH"),".BUZZER");
 
-	'IF (?VarEnBuzzer == 1 && ?VarBuzzer == 1) THEN
+	IF (?VarEnBuzzer == 1 && ?VarBuzzer == 1) THEN
 
-		ProjectPath=GETPROJECTDIR();
-		ProjectPath=ADDSTRING(ProjectPath,"\\LIB\\L_DistArch\\TP\\wav_player.exe");
-	''	APPLICATION("LOAD",ProjectPath,"suonoalto.wav",5);
+		SoundPath=ADDSTRING("\"", GETPROJECTDIR(), "\\LIB\\L_DistArch\\TP\\suonoalto.wav", "\"");
+		PlayerPath=ADDSTRING(GETPROJECTDIR(), "\\LIB\\L_DistArch\\TP\\wav_player.exe");
 
-	'END IF
+		ret = APPLICATION("LOAD", PlayerPath, SoundPath, 5);
+
+	END IF
 
 End Sub
 
@@ -380,14 +383,14 @@ Sub SetBuzzer()
 	Dim VarEnBuzzer as Str;
 	Dim VarBuzzer as Str;
 
-	'VarEnBuzzer=ADDSTRING("LAN.",@SYSTEM.STATION_NAME,".EN_BUZZER");
-	'VarBuzzer=ADDSTRING("LAN.",@SYSTEM.STATION_NAME,".BUZZER");
+	VarEnBuzzer=ADDSTRING(GetArg("BRANCH"),".EN_BUZZER");
+	VarBuzzer=ADDSTRING(GetArg("BRANCH"),".BUZZER");
 
-	'IF (?VarEnBuzzer == 1 ) THEN
+	IF (?VarEnBuzzer == 1) THEN
 
-	''	?VarBuzzer = (1);
+		?VarBuzzer = 1;
 
-	'END IF
+	END IF
 
 End Sub
 
@@ -408,8 +411,8 @@ Sub ResetBuzzer()
 	Dim VarEnBuzzer as Str;
 	Dim VarBuzzer as Str;
 
-	'VarBuzzer=ADDSTRING("LAN.",@SYSTEM.STATION_NAME,".BUZZER");
-	'?VarBuzzer = (0);
+	VarBuzzer=ADDSTRING(GetArg("BRANCH"),".BUZZER");
+	?VarBuzzer = 0;
 
 End Sub
 
