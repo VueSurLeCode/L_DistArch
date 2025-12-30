@@ -167,6 +167,198 @@
 <ObjectsList/>
 <InheritedTemplatesList/>
 </Template>
+<Template Name="HDS_ASSOC">
+<DescriptionLang1>Association de serveurs d’historiques</DescriptionLang1>
+<DescriptionLang2>Historical server association</DescriptionLang2>
+<AutoNaming_Prefix/>
+<AutoNaming_StartValue>1</AutoNaming_StartValue>
+<AutoNaming_FixedDigits>1</AutoNaming_FixedDigits>
+<AutoNaming_Step>1</AutoNaming_Step>
+<Enable_Instance>true</Enable_Instance>
+<ParametersList/>
+<TemplatesList/>
+<ObjectsList/>
+<InheritedTemplatesList/>
+</Template>
+<Template Name="HistoServer">
+<AutoNaming_Prefix>DATASERVER</AutoNaming_Prefix>
+<AutoNaming_StartValue>1</AutoNaming_StartValue>
+<AutoNaming_FixedDigits>1</AutoNaming_FixedDigits>
+<AutoNaming_Step>1</AutoNaming_Step>
+<Enable_Instance>true</Enable_Instance>
+<ParametersList>
+<ParameterInstance Name="L_DistArch/VarServerLocalList">
+<DescriptionLang1>VarServerLocalList</DescriptionLang1>
+<DescriptionLang2>VarServerLocalList</DescriptionLang2>
+<Value/>
+<Scope>1</Scope>
+</ParameterInstance>
+</ParametersList>
+<TemplatesList/>
+<ObjectsList>
+<Object Name="ErrorCount">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="MaximumValue" Reset="false" Substitute="false">4194304</Property>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="System.HDS.ErrorCount"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+<Object Name="HdsSymb">
+<DescriptionLang1>Desc StationSymb</DescriptionLang1>
+<InternalType>4</InternalType>
+<SvType>5</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Description" Reset="true" Substitute="false"></Property>
+<Property id="SymbolTemplate_Name" Reset="false" Substitute="false">L_DistArch/HDS.sym</Property>
+<Property id="Visibility" Reset="true" Substitute="false">0;6400</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+<Object Name="NoResponseCount">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="MaximumValue" Reset="false" Substitute="false">4194304</Property>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="System.HDS.NoResponseCount"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+<Object Name="Overflow">
+<InternalType>2</InternalType>
+<SvType>1</SvType>
+<ObjectItem SubType="">
+<Properties/>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="System.HDS.Overflow"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+<Object Name="PendingRecords">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="MaximumValue" Reset="false" Substitute="false">4194304</Property>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="System.HDS.PendingRecords"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+<Object Name="Started">
+<InternalType>2</InternalType>
+<SvType>1</SvType>
+<ObjectItem SubType="">
+<Properties/>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="System.HDS.Started"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+</ObjectsList>
+<InheritedTemplatesList>
+<Template Name="HistoRedondantServer">
+<AutoNaming_Prefix>DATASERVER</AutoNaming_Prefix>
+<AutoNaming_StartValue>1</AutoNaming_StartValue>
+<AutoNaming_FixedDigits>1</AutoNaming_FixedDigits>
+<AutoNaming_Step>1</AutoNaming_Step>
+<Enable_Instance>true</Enable_Instance>
+<ParametersList/>
+<TemplatesList/>
+<ObjectsList>
+<Object Name="LocalHost">
+<InternalType>2</InternalType>
+<SvType>1</SvType>
+<ObjectItem SubType="">
+<Properties/>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="@SYSTEM." + Inst.Parent.Name + "." + Inst.Name</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+<Object Name="RedondanceStatus">
+<DescriptionLang1>Desc RedondanceStatus</DescriptionLang1>
+<InternalType>4</InternalType>
+<SvType>5</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="SymbolTemplate_Name" Reset="false" Substitute="false">L_DistArch/RedondantServer.sym</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+<InheritedTemplatesList/>
+</Template>
+</InheritedTemplatesList>
+</Template>
 <Template Name="StationClient">
 <AutoNaming_Prefix>DATACLIENT</AutoNaming_Prefix>
 <AutoNaming_StartValue>1</AutoNaming_StartValue>

@@ -62,7 +62,7 @@ End Sub
 
 
 '---------------------------------------
-' RT_Switch
+' S_Switch
 '---------------------------------------
 ' Purpose:
 '   Switch active/passive servers for real-time data redundancy.
@@ -79,7 +79,7 @@ End Sub
 '   - Only one server can be ACTIVE at a time.
 '---------------------------------------
 
-Sub RT_Switch()
+Sub S_Switch()
 
     Dim cAssociation As Str;
     Dim cStationName As Str;
@@ -102,6 +102,48 @@ Sub RT_Switch()
     
   	END IF
 
-  	TRACE("LOG", ADDSTRING("RT_Switch: ", cAssociation, " station=", cStationName));
+  	TRACE("LOG", ADDSTRING("S_Switch: ", cAssociation, " station=", cStationName));
 
+End Sub
+
+
+
+'---------------------------------------
+' S_Change_Avail
+'---------------------------------------
+' Purpose:
+'   Switch active/passive servers for historical data redundancy.
+'   - Assigns 100% availability to the active station.
+'   - Assigns 50% availability to the passive station (hot-standby).
+'
+' Arguments:
+'   ARG1 = Association name (historical redundancy)
+'   ARG2 = Active station name
+'   ARG3 = Passive station name
+'
+' Notes:
+'   - LAN("SET_AVAILABLE_RATE", ...) is used for load balancing.
+'   - Both servers remain online; passive is ready to take over.
+'---------------------------------------
+
+Sub S_Change_Avail()
+
+    Dim cAssociation      As Str;
+    Dim cStationName      As Str;
+    Dim cOtherStationName As Str;
+    Dim iReturn           As Integer;
+
+    ' Retrieve arguments passed to this sub
+    cAssociation      = Ucase(GetArg("ARG1"));
+    cStationName      = Ucase(GetArg("ARG2"));
+    cOtherStationName = Ucase(GetArg("ARG3"));
+
+	'LAN (Mode, AssocName, StationName, AvailableRate);
+
+	' Set availability: active = 100%, passive = 50%
+	LAN("SET_AVAILABLE_RATE", cAssociation, cStationName,100 );
+	LAN("SET_AVAILABLE_RATE", cAssociation, cOtherStationName,50 );
+	
+	TRACE("LOG", ADDSTRING("H_Switch: ", cAssociation, " active=", cStationName, " passive=", cOtherStationName));
+	
 End Sub

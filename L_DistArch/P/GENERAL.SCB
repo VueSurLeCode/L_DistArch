@@ -142,7 +142,7 @@ Sub Main2()
     CYCLIC("DEL_EX", 10, "L_DistArch/GENERAL.SCB", "", "Main2");
     
     ' Log module initialization
-    TRACE("LOG", "***** L_ArchDist : Client-Server Management module loaded ****");
+    TRACE("LOG", "***** L_DistArch : Client-Server Management module loaded ****");
 
 End Sub
 
@@ -176,7 +176,7 @@ Sub UserReload()
     '-----------------------------------
 
 	'Configuring parameters to attach to .bat file
-	strConcatArg = ADDSTRING("\"", strCentralPath, "\"", " ", "\"", SvProjectPath, "\"");
+	strConcatArg = ADDSTRING("\"", strCentralPath, "\\", SvProjectName, "\"", " ", "\"", SvProjectPath, "\"");
 
     ' Build batch path -> <ProjectDir><LibraryDir>\TP\user_load.bat
     LoadCmd = ADDSTRING(GETPROJECTDIR(), "\\LIB\\L_DistArch\\TP\\user_load.bat");
@@ -223,7 +223,7 @@ Sub Restart_PcVue()
     Dim VarOverRide     As Str;
     Dim bVarOverRide	As integer;
 
-    TRACE("LOG","***** L_ArchDist : SCADA Reload request reiceved ****");
+    TRACE("LOG","***** L_DistArch : SCADA Reload request reiceved ****");
 
     '---------------------------------------
     ' Check if reload can be executed
@@ -243,7 +243,7 @@ Sub Restart_PcVue()
         ' Wait a few seconds to allow propagation across servers
         DELAY(3);
 
-        TRACE("LOG", "***** L_ArchDist : SCADA Reload in progress ****");
+        TRACE("LOG", "***** L_DistArch : SCADA Reload in progress ****");
 
         ' Get process ID and paths
         MyId = GetCurrentProcessId();
@@ -272,7 +272,7 @@ Sub Restart_PcVue()
         '---------------------------------------
         IF (@System.LocalHost.Environment.RunningAsService == 1) THEN
             ServiceRst = "net stop SvCoreDaemon && net start SvCoreDaemon";
-            TRACE("LOG", ADDSTRING("***** L_ArchDist : SERVICE RESTART : ", ServiceRst, " ****"));
+            TRACE("LOG", ADDSTRING("***** L_DistArch : SERVICE RESTART : ", ServiceRst, " ****"));
             SYSTEM("SYSTEM", ServiceRst);
             STOP();
         END IF
@@ -321,7 +321,7 @@ Sub Restart_PcVue()
         '---------------------------------------
         ' If user is logged in -> postpone reload
         '---------------------------------------
-        TRACE("LOG", "***** L_ArchDist : User online, reload postponed... ****");
+        TRACE("LOG", "***** L_DistArch : User online, reload postponed... ****");
     END IF
 
 End Sub
@@ -476,8 +476,8 @@ Sub BroadcastUserMgt()
     Dim strConcatArg as Str;
 
 
-	'Configuring parameters to attach to .bat file
-	strConcatArg = ADDSTRING("\"", SvProjectPath, "\"", " ", "\"", strCentralPath, "\"");
+	' Configuring parameters to attach to .bat file
+	strConcatArg = ADDSTRING("\"", SvProjectPath, "\"", " ", "\"", strCentralPath, "\\", SvProjectName, "\"");
 
 	CopyCommand = ADDSTRING(GETPROJECTDIR(),"\\LIB\\L_DistArch\\TP\\user_copy.bat");
 
@@ -494,6 +494,9 @@ Sub BroadcastUserMgt()
 	
 	While (Feof(FileName)==0)
 		VarName = Fgets(FileName, 255);
+		If (CmpString(VarName, "") == 0) Then ' last line can be empty
+			Break;	' exit from while
+		End If
 		StationName = GetElement(VarName, ".", -1);
 		print(StationName);
 		
@@ -532,7 +535,7 @@ Sub DualDisplay()
     ' Enable dual display only for selected stations
     IF ((@SYSTEM.STATION_NUMBER == 1) OR (@SYSTEM.STATION_NUMBER == 2)) THEN
 
-        TRACE("LOG", "***** L_ArchDist : Dual monitor activated ****");
+        TRACE("LOG", "***** L_DistArch : Dual monitor activated ****");
 
         ' Switch to secondary screen (Region 2)
         REGION("SETREGION", 2);
@@ -549,47 +552,6 @@ Sub DualDisplay()
     REGION("SETSELECTION", 0);
     REGION("SETREGION", 1);
 
-End Sub
-
-
-'---------------------------------------
-' H_Switch
-'---------------------------------------
-' Purpose:
-'   Switch active/passive servers for historical data redundancy.
-'   - Assigns 100% availability to the active station.
-'   - Assigns 50% availability to the passive station (hot-standby).
-'
-' Arguments:
-'   ARG1 = Association name (historical redundancy)
-'   ARG2 = Active station name
-'   ARG3 = Passive station name
-'
-' Notes:
-'   - LAN("SET_AVAILABLE_RATE", ...) is used for load balancing.
-'   - Both servers remain online; passive is ready to take over.
-'---------------------------------------
-
-Sub H_Switch()
-
-    Dim cAssociation      As Str;
-    Dim cStationName      As Str;
-    Dim cOtherStationName As Str;
-    Dim iReturn           As Integer;
-
-    ' Retrieve arguments passed to this sub
-    cAssociation      = Ucase(GetArg("ARG1"));
-    cStationName      = Ucase(GetArg("ARG2"));
-    cOtherStationName = Ucase(GetArg("ARG3"));
-
-	'LAN (Mode, AssocName, StationName, AvailableRate);
-
-	' Set availability: active = 100%, passive = 50%
-	LAN("SET_AVAILABLE_RATE", cAssociation, cStationName,100 );
-	LAN("SET_AVAILABLE_RATE", cAssociation, cOtherStationName,50 );
-	
-	TRACE("LOG", ADDSTRING("H_Switch: ", cAssociation, " active=", cStationName, " passive=", cOtherStationName));
-	
 End Sub
 
 
