@@ -69,8 +69,8 @@ Dim lngBufFile as Long;
 Dim lngBuffer2 as Long;
 Dim i as Integer;
 
-	FileName = Left(GetApplicationDir(), Len(GetApplicationDir())-3) ;
-	FileName = AddString(FileName, "ETC\\ini.dat");
+	FileName = Left(GetProjectDir(), Len(GetProjectDir()) - 4 - Len(SvProjectName)); ' {data} folder (usr, etc, lib, databases.)
+	FileName = AddString(FileName, "etc\\ini.dat");
 
 	lngBufFile = FileToBuf(FileName);
 	i = Seq_Buffer("BEGIN", lngBufFile);
@@ -108,14 +108,11 @@ End Sub
 Sub Main()
     MyId = GetCurrentProcessId();
     SvProjectPath = GetProjectDir();
+	SvProjectName = GetElement(GetProjectDir(),"\\",-1);
     SvPath = AddString(GetApplicationDir(), "\\sv32.exe");
 	StrCentralPath = GetCentralPath();
-	SvProjectName = GetElement(GetProjectDir(),"\\",-1);
-	
-	
-    ' Schedule cyclic buzzer management
-    'CYCLIC("ADDPROG", 15, "L_DistArch/GENERAL.SCB", "", "Buzzer");
 
+	
     ' Delay loading of Main2() to allow system initialization
     CYCLIC("ADDPROG", 10, "L_DistArch/GENERAL.SCB", "", "Main2");
     
@@ -498,7 +495,7 @@ Sub BroadcastUserMgt()
 			Break;	' exit from while
 		End If
 		StationName = GetElement(VarName, ".", -1);
-		print(StationName);
+		print(VarName);
 		
 		If ((CmpString(StationName, @System.Station_name)!=0) && (CmpString(StationName, "")!=0)) Then
 			VarName = AddString(VarName, ".USER_RELOAD");

@@ -12,12 +12,12 @@ COLORS,BEGIN
 	COLOREX,5,160,160,160,0,0,0
 	COLOREX,6,96,96,96,0,0,0
 COLORS,END
-O,BEGIN,GRP,"Architecture_DAS_ASSOC1_DATASERVER1_RedondanceStatus"
+O,BEGIN,GRP,"RedondanceStatus"
 	B,1357,158,1584,198,1357,158,65535,0,6400,0,1,0,0,0,1,0,-1
 	O,BEGIN,T,"Text2"
 		B,1357,172,1461,198,1357,172,1,0,6400,0,2,0,0,0,1,0,-1
 		ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-		PP,1,1357,172,0,0,FONT,1,"Status",37,FONT,1,"Statut",36
+		PP,1,1357,172,0,0,FONT,1,"Status",36,FONT,1,"Statut",36
 		A,BEGIN,TB,"Anim1",0,0,"","","0", , 
 			PP,"LocalHost",1,1,1
 			PPT,0,"Passive","Passif"
@@ -40,7 +40,7 @@ O,BEGIN,GRP,"Architecture_DAS_ASSOC1_DATASERVER1_RedondanceStatus"
 	O,BEGIN,T,"Text18"
 		B,1357,158,1584,172,1357,159,3,0,6400,0,2,0,0,0,1,0,-1
 		ST,0,1,COLOR,6,COLOR,6,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
-		PP,1,1357,158,0,0,FONT,3,"Station Name",85,FONT,3,"Station Name",84
+		PP,1,1357,158,0,0,FONT,3,"Station Name",84,FONT,3,"Station Name",84
 		A,BEGIN,DL,"Anim1",0,0,"","","0", , 
 			PP,"LocalHost",2,"#2",0
 		A,END

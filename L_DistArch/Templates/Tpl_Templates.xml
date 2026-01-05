@@ -40,7 +40,6 @@
 <Property id="Description" Reset="false" Substitute="false">1 when local station is active in managing audit events</Property>
 <Property id="Eqt_Type" Reset="false" Substitute="false">B</Property>
 <Property id="InitialValue" Reset="false" Substitute="false">0</Property>
-<Property id="ServerListName" Reset="false" Substitute="true">L_DistArch/pAllServerList</Property>
 <Property id="WithInitialValue" Reset="false" Substitute="false">-1</Property>
 </Properties>
 </ObjectItem>
@@ -307,6 +306,49 @@
 <ObjectItem SubType="">
 <Properties>
 <Property id="Expression" Reset="false" Substitute="true">="System.HDS.Started"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+<Object Name="StationName">
+<InternalType>2</InternalType>
+<SvType>65</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Format" Reset="false" Substitute="false">1</Property>
+<Property id="Tags" Reset="false" Substitute="false">station</Property>
+<Property id="Text_LinePosition" Reset="false" Substitute="false">2</Property>
+<Property id="Text_Value" Reset="false" Substitute="true">=Inst.FullBranch</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+<Object Name="USER_RELOAD">
+<InternalType>2</InternalType>
+<SvType>1</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Command" Reset="false" Substitute="false">-1</Property>
+<Property id="Description" Reset="false" Substitute="false">When 1, reloads USER.DAT configuration file.</Property>
+<Property id="DescriptionAlt" Reset="false" Substitute="false">Lorsque 1, recharge le fichier de configuration USER.DAT.</Property>
+<Property id="Log" Reset="false" Substitute="false">-1</Property>
+<Property id="Log0_1" Reset="false" Substitute="false">-1</Property>
+<Property id="Log1_0" Reset="false" Substitute="false">-1</Property>
+<Property id="WithInitialValue" Reset="false" Substitute="false">-1</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="UserReload">
+<InternalType>5</InternalType>
+<SvType>10</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="ProgramFunction" Reset="false" Substitute="false">UserReload</Property>
+<Property id="ProgramName" Reset="false" Substitute="false">L_DistArch/GENERAL.SCB</Property>
+<Property id="ServerListName" Reset="false" Substitute="true">=Inst.Name</Property>
+<Property id="TriggeringCondition" Reset="false" Substitute="false">1</Property>
 </Properties>
 </ObjectItem>
 <ObjectsList/>
@@ -1076,7 +1118,7 @@
 <Properties>
 <Property id="Command" Reset="false" Substitute="false">-1</Property>
 <Property id="Description" Reset="false" Substitute="false">When 1, reloads USER.DAT configuration file.</Property>
-<Property id="DescriptionAlt" Reset="false" Substitute="false">Quando vale 1, ricarica il file di configurazione USER.DAT.</Property>
+<Property id="DescriptionAlt" Reset="false" Substitute="false">Lorsque 1, recharge le fichier de configuration USER.DAT.</Property>
 <Property id="Log" Reset="false" Substitute="false">-1</Property>
 <Property id="Log0_1" Reset="false" Substitute="false">-1</Property>
 <Property id="Log1_0" Reset="false" Substitute="false">-1</Property>
