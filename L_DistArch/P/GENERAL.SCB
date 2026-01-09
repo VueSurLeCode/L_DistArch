@@ -11,11 +11,11 @@
 ' These functions are used by Restart_PcVue() and GetSvPath()
 ' to retrieve the current process ID and executable path.
 '---------------------------------------
-Dim SvPath          As Str;    ' Path of sv32.exe
+Dim SvPath          As Str;    ' Full path to sv32.exe (PcVue runtime)
 Dim MyId            As Long;   ' Current PcVue process ID
-Dim SvProjectPath   As Str;
-Dim SvProjectName   As Str;
-Dim strCentralPath 	As Str;
+Dim SvProjectPath   As Str;    ' Full path to project directory
+Dim SvProjectName   As Str;    ' Name of the current SCADA project
+Dim strCentralPath  As Str;    ' Path to central shared folder (managed projects)
 
 
 Declare Function GetCurrentProcessId Lib "kernel32" Alias "GetCurrentProcessId" () As Long;
@@ -37,17 +37,23 @@ Declare Function CloseHandle Lib "kernel32" (hObject As Long) As Long;
 '---------------------------------------
 
 Sub GetElement(strExpression, delimiter, position)
-Dim lngBuffer1 as Long;
-Dim strResult as Str;
+Dim lngBuffer1 as Long;  ' Buffer to hold the expression string
+Dim strResult as Str;    ' Result string (single element)
 
+	' Allocate buffer and load expression string
 	lngBuffer1 = Alloc_Buffer(Len(strExpression));
 	Put_Buffer(lngBuffer1, 0, strExpression);
-	If (position == -1) Then
+	
+	' Extract element at specified position
+	IF (position == -1) Then
+		' Position -1 means "last element"
 		strResult = Asciifield("STR", lngBuffer1, Asciifield("COUNT", lngBuffer1, delimiter) , delimiter);
-	Else
-		strResult = Asciifield("STR", lngBuffer1, position , delimiter);		
+	ELSE
+		' Get element at specific position (1-based)
+		strResult = Asciifield("STR", lngBuffer1, position , delimiter);
 	End If
 
+	' Free memory and return result
 	Free_Buffer(lngBuffer1);
 	Return(strResult);
 	
@@ -106,16 +112,19 @@ End Sub
 '---------------------------------------
 
 Sub Main()
-    MyId = GetCurrentProcessId();
-    SvProjectPath = GetProjectDir();
-	SvProjectName = GetElement(GetProjectDir(),"\\",-1);
-    SvPath = AddString(GetApplicationDir(), "\\sv32.exe");
-	StrCentralPath = GetCentralPath();
+    ' === INITIALIZE GLOBAL VARIABLES ===
+    ' Retrieve process and project information from Windows API
+    MyId = GetCurrentProcessId();              ' Current PcVue runtime process ID
+    SvProjectPath = GetProjectDir();           ' Full path to project directory
+	SvProjectName = GetElement(GetProjectDir(),"\\",-1);  ' Extract project name from path
+    SvPath = AddString(GetApplicationDir(), "\\sv32.exe");  ' Full path to runtime executable
+	StrCentralPath = GetCentralPath();         ' Central project management folder
 
-	
-    ' Delay loading of Main2() to allow system initialization
+	' === SCHEDULE CYCLIC TASKS ===
+    ' Delay loading of Main2() to allow system initialization (10-second delay)
     CYCLIC("ADDPROG", 10, "L_DistArch/GENERAL.SCB", "", "Main2");
     
+    ' Preload Networking module for redundancy management
     Program("PRELOAD", "L_DistArch/Networking.SCB", "");
 
 End Sub
@@ -131,15 +140,18 @@ End Sub
 '---------------------------------------
 
 Sub Main2()
-    
+    ' === OPTIONAL DUAL DISPLAY ===
     ' Optional dual monitor activation (currently disabled)
+    ' Uncomment DualDisplay() to enable:
     ' DualDisplay()
     
-    ' Remove delayed cyclic created in Main()
+    ' === CLEANUP ===
+    ' Remove the delayed cyclic task scheduled in Main() (10-second delay)
     CYCLIC("DEL_EX", 10, "L_DistArch/GENERAL.SCB", "", "Main2");
     
+    ' === LOG INITIALIZATION ===
     ' Log module initialization
-    TRACE("LOG", "***** L_DistArch : Client-Server Management module loaded ****");
+    TRACE("LOG", "***** L_DistArch : Client-Server Management module loaded ***");
 
 End Sub
 
@@ -163,27 +175,32 @@ End Sub
 
 Sub UserReload()
 
-    Dim LoadCmd         As Str;
-    Dim VarRunningMode  As Str;
-    Dim RunningMode     As Single;
-    Dim strConcatArg 	As Str;
+    Dim LoadCmd         As Str;    ' Full path to user_load.bat
+    Dim VarRunningMode  As Str;    ' Running mode variable name
+    Dim RunningMode     As Single; ' Running mode value (1=Console, 2=Service, 3=RDS)
+    Dim strConcatArg 	As Str;    ' Arguments for batch file
 
     '-----------------------------------
     ' User reload management
     '-----------------------------------
 
-	'Configuring parameters to attach to .bat file
+	' === BUILD BATCH ARGUMENTS ===
+	' Arguments format: "<CentralPath>\<ProjectName>" "<LocalProjectPath>"
 	strConcatArg = ADDSTRING("\"", strCentralPath, "\\", SvProjectName, "\"", " ", "\"", SvProjectPath, "\"");
 
-    ' Build batch path -> <ProjectDir><LibraryDir>\TP\user_load.bat
+    ' Build batch file path: <ProjectDir>\LIB\L_DistArch\TP\user_load.bat
+    ' This batch copies updated user.dat from central folder to local station
     LoadCmd = ADDSTRING(GETPROJECTDIR(), "\\LIB\\L_DistArch\\TP\\user_load.bat");
 
+    ' Log the reload operation
     TRACE("LOG", ADDSTRING("UserReload: reload user.dat --> ", LoadCmd," --> ",strConcatArg));
         
+	' === EXECUTE USER RELOAD ===
 	' Execute batch to reload user.dat from central folder to local station
 	APPLICATION("LOAD", LoadCmd, strConcatArg);
 
-    ' Reset USER_RELOAD variable to 0
+    ' === RESET TRIGGER ===
+    ' Reset USER_RELOAD variable to 0 (acknowledge completion)
     Set(GetArg("VARNAME"), 0);
     Sendlist("BLOC");
 
@@ -208,17 +225,17 @@ End Sub
 
 Sub Restart_PcVue()
 
-    Dim SvProjectsPath  As Str;
-    Dim SvRestartPath   As Str;    ' Path of svrestart.exe
-    Dim CommandLine     As Str;    ' Final command to execute
-    Dim Args            As Str;    ' Arguments for svrestart.exe
-    Dim VarReset        As Str;
-    Dim LenStName       As Integer;
-    Dim LenPrjName      As Integer;
-    Dim LenResult       As Integer;
-    Dim ServiceRst      As Str;
-    Dim VarOverRide     As Str;
-    Dim bVarOverRide	As integer;
+    Dim SvProjectsPath  As Str;    ' Base projects path
+    Dim SvRestartPath   As Str;    ' Full path to svrestart.exe
+    Dim CommandLine     As Str;    ' Complete restart command to execute
+    Dim Args            As Str;    ' Arguments passed to svrestart.exe
+    Dim VarReset        As Str;    ' RESET variable name
+    Dim LenStName       As Integer;' Length of station name (for RDS handling)
+    Dim LenPrjName      As Integer;' Length of project name
+    Dim LenResult       As Integer;' Calculated result length
+    Dim ServiceRst      As Str;    ' Service restart command (Windows net command)
+    Dim VarOverRide     As Str;    ' Override flag variable name
+    Dim bVarOverRide	As integer;  ' Override flag value (0=No, 1=Yes)
 
     TRACE("LOG","***** L_DistArch : SCADA Reload request reiceved ****");
 
@@ -281,6 +298,10 @@ Sub Restart_PcVue()
         SvRestartPath = ADDSTRING ("\"" , SvRestartPath); 
         SvRestartPath = ADDSTRING (SvRestartPath,"\""); 
         
+        ' Build arguments for svrestart.exe:
+        ' Arg1: Process ID to monitor
+        ' Arg2: executable path to restart (sv32.exe)
+        ' Arg3+: Optional mode flags (-WTS for RDS, -r for ref, etc.)
         Args = ADDSTRING ( " " , TOC(MyId) ); 
         Args = ADDSTRING (Args, " \""); 
         Args = ADDSTRING (Args , SvPath); 
@@ -290,13 +311,16 @@ Sub Restart_PcVue()
         
         ' RDS mode requires additional parameters
         IF (@System.LocalHost.Environment.RunningInRemoteDesktopSession == 1) THEN
+        	' Use -WTS flag for Terminal Server (RDS) mode
         	Args = ADDSTRING (Args , ADDSTRING ( "-WTS ",SvProjectName ) ); 
         	Args = ADDSTRING (Args , ADDSTRING ( ",",@SYSTEM.STATION_NAME) ); 
-        	Args = ADDSTRING (Args, " -r"); 'Args = ADDSTRING (Args, " -k 1,1,1 -r"); 
+        	Args = ADDSTRING (Args, " -r"); 
         ELSE 
+        	' Standard restart flag
         	Args = ADDSTRING (Args, " -r"); 
         END IF
         
+        ' Add display message for user (shown during restart)
         Args = ADDSTRING (Args , "\""); 
         Args = ADDSTRING (Args , " "); 
         Args = ADDSTRING (Args , "\""); 
@@ -305,8 +329,10 @@ Sub Restart_PcVue()
         Args = ADDSTRING (Args , " restart in progress..."); 
         Args = ADDSTRING (Args , "\"");
         
+        ' Combine path and arguments into complete command line
         CommandLine = ADDSTRING(SvRestartPath, Args);
 
+        ' === EXECUTE RESTART ===
         ' Launch restart application
         ' Comment this line during test to avoid immediate restart
         APPLICATION("LOAD", CommandLine);
@@ -316,8 +342,9 @@ Sub Restart_PcVue()
 
     ELSE
         '---------------------------------------
-        ' If user is logged in -> postpone reload
-        '---------------------------------------
+        ' If user is logged in -> postpone reload        
+		' Reload will be retried on next trigger        
+		'---------------------------------------
         TRACE("LOG", "***** L_DistArch : User online, reload postponed... ****");
     END IF
 
@@ -404,11 +431,14 @@ End Sub
 
 Sub ResetBuzzer()
 
-	Dim ProjectPath as Str;
-	Dim VarEnBuzzer as Str;
-	Dim VarBuzzer as Str;
+	Dim VarEnBuzzer as Str;   ' Enable flag variable name
+	Dim VarBuzzer as Str;     ' Trigger flag variable name
 
+	' === BUILD VARIABLE NAME ===
 	VarBuzzer=ADDSTRING(GetArg("BRANCH"),".BUZZER");
+	
+	' === RESET TRIGGER ===
+	' Clear buzzer trigger flag (0 = inactive)
 	?VarBuzzer = 0;
 
 End Sub
@@ -430,12 +460,15 @@ End Sub
 
 Sub UserDisconnection()
 	
-	Dim strDisconn as Str;
+	Dim strDisconn as Str;  ' USER_DISC variable name
 	
-	' Force logout
+	' === FORCE LOGOUT ===
+	' Terminate the current user session
 	SYSTEM("LOGOUT");
-	TRACE("LOG",ADDSTRING("User disconnection override ",@USER));
+	TRACE("LOG",ADDSTRING("User disconnection override ",@USER));  ' Log the action
 	
+	' === RESET TRIGGER ===
+	' Reset USER_DISC variable to 0 (acknowledge completion)
 	strDisconn = GetArg("VARNAME");
 	?strDisconn = 0;
 
@@ -587,50 +620,69 @@ Sub LogUser()
 	Dim RunningMode as Single;
 			
 	
-		'Retrieve branch passed as argument
+		' === RETRIEVE ARGUMENTS ===
+        ' Retrieve branch passed as argument
         currBrch = GETARG("BRANCH");
 
-        ' Build LAN variable names
-		varLogin       = ADDSTRING(currBrch, ".LOGIN"); 		
-		varLogout      = ADDSTRING(currBrch, ".LOGOUT"); 		
-		varOnline      = ADDSTRING(currBrch, ".ONLINE"); 	
-		varUser        = ADDSTRING(currBrch, ".UserConnected");
-		varRunningMode = ADDSTRING(currBrch, ".RUNNINGMODE");
-		varStation     = VARIABLE("TATT",varOnline,3);
+        ' === BUILD LAN VARIABLE NAMES ===
+        ' Format: <Branch>.<VariableName>
+		varLogin       = ADDSTRING(currBrch, ".LOGIN"); 		' User login trigger
+		varLogout      = ADDSTRING(currBrch, ".LOGOUT"); 		' User logout trigger
+		varOnline      = ADDSTRING(currBrch, ".ONLINE"); 	' Station online indicator
+		varUser        = ADDSTRING(currBrch, ".UserConnected");  ' Current user name
+		varRunningMode = ADDSTRING(currBrch, ".RUNNINGMODE");    ' Execution mode
+		varStation     = VARIABLE("TATT",varOnline,3);  ' Extract station name from attribute
 
-		strVarUser = (?varUser); 								'put on varUSer the current user name
-		RunningMode = (?varRunningMode); 						'put RunningMode value on internal Var
+		' === RETRIEVE CURRENT VALUES ===
+		strVarUser = (?varUser);         ' Get current user name
+		RunningMode = (?varRunningMode); ' Get running mode (1=Console, 2=Service, 3=RDS)
 
         '---------------------------------------
-        ' User LOGIN case
+        ' User LOGIN case (User is NOT DEFUSER)
         '---------------------------------------		
         IF ((CmpString(strVarUser, "DEFUSER") != 0)) Then
 
+        	' === STORE LOGIN INFO ===
+        	' Store user name in LOGIN variable attribute 3
 			VARIABLE("SETTATT", VarLogin, 3, strVarUser);
+			' Store station name in LOGIN variable attribute 4
 			VARIABLE("SETTATT", VarLogin, 4, varStation);
 		
+            ' === STORE RUNNING MODE ===
+            ' Store execution mode in LOGIN variable attribute 5
             IF (RunningMode == 1) THEN VARIABLE("SETTATT", varLogin, 5, "CONSOLE"); END IF
             IF (RunningMode == 2) THEN VARIABLE("SETTATT", varLogin, 5, "SERVICE"); END IF
             IF (RunningMode == 3) THEN VARIABLE("SETTATT", varLogin, 5, "RDS");     END IF
 
+        	' === LOG AND TRIGGER ===
 			TRACE("LOG",(ADDSTRING("--- REMOTE TRACE LOGIN --- ", varLogin, " - ", strVarUser)));
+			' Schedule reset of LOGIN trigger after 1 second
 			CYCLIC("ADDPROG", 1, "L_DistArch/GENERAL.SCB", currBrch, "ResetTrigger", "LOGIN" );
+			' Set LOGIN trigger flag to 1
 			?VarLogin = (1);
 
         '---------------------------------------
-        ' User LOGOUT case
+        ' User LOGOUT case (User IS DEFUSER or logged out)
         '---------------------------------------
 		ELSE
 
+        	' === STORE LOGOUT INFO ===
+        	' Store user name in LOGOUT variable attribute 3
 			VARIABLE("SETTATT", VarLogout, 3, strVarUser);
+			' Store station name in LOGOUT variable attribute 4
 			VARIABLE("SETTATT", VarLogout, 4, varStation);
 		
+            ' === STORE RUNNING MODE ===
+            ' Store execution mode in LOGOUT variable attribute 5
             IF (RunningMode == 1) THEN VARIABLE("SETTATT", varLogout, 5, "CONSOLE"); END IF
             IF (RunningMode == 2) THEN VARIABLE("SETTATT", varLogout, 5, "SERVICE"); END IF
             IF (RunningMode == 3) THEN VARIABLE("SETTATT", varLogout, 5, "RDS");     END IF
             		
+        	' === LOG AND TRIGGER ===		
 			TRACE("LOG",(ADDSTRING("--- REMOTE TRACE LOGOFF --- ", varLogout, " - ", strVarUser)));
+			' Schedule reset of LOGOUT trigger after 1 second
 			CYCLIC("ADDPROG", 1, "L_DistArch/GENERAL.SCB", currBrch, "ResetTrigger", "LOGOUT" );
+			' Set LOGOUT trigger flag to 1
 			?varLogout = (1);
 
 		END IF
@@ -653,21 +705,25 @@ End Sub
 
 Sub ResetTrigger()
 
-	Dim currBrch as Str;
-	Dim varName as Str;
-	Dim strArg1 as Str;
+	Dim currBrch as Str;   ' Base branch name
+	Dim varName as Str;    ' Variable name to reset
+	Dim strArg1 as Str;    ' Trigger type: "LOGIN" or "LOGOUT"
 	
-	strArg1 = GETARG("ARG1");
-	currBrch = GETARG("BRANCH");
+	' === RETRIEVE ARGUMENTS ===
+	strArg1 = GETARG("ARG1");   ' Get trigger type
+	currBrch = GETARG("BRANCH");  ' Get branch name
 	
+	' === CLEANUP ===
+	' Remove this cyclic task (executes once)
 	CYCLIC("DEL", 1, "L_DistArch/GENERAL.SCB", currBrch, "ResetTrigger" );
 	
-	'Varname costruisce la variabile bit che triggera la scrittura evento
-	varName=ADDSTRING(currBrch, ".",strArg1); 				
+	' === RESET TRIGGER ===
+	' Construct variable name: <Branch>.<LOGIN|LOGOUT>
+	varName=ADDSTRING(currBrch, ".",strArg1);				
+	' Clear trigger flag to 0 (single-shot event)
 	?varName = (0);
 
-	TRACE("LOG",(ADDSTRING("--- TRACE LOGIN LOGOFF RESETTRIGGER --- ",varName)));
-	
+	' Log the reset action (optional)
 End Sub
 
 
@@ -686,16 +742,21 @@ End Sub
 '---------------------------------------
 Sub DualHardCopy()
 
-	Dim PrintLink as Str;
-	Dim Filename as Str;
+	Dim PrintLink as Str;   ' Full path to nircmd.exe (screenshot utility)
+	Dim Filename as Str;    ' Screenshot command with parameters
 
+	' === CONFIGURE SCREENSHOT TOOL ===
 	' Path to nircmd.exe (must exist in \L_DistArch\TP\)
 	PrintLink = GETPROJECTDIR();
 	PrintLink = ADDSTRING(PrintLink,"\\LIB\\L_DistArch\\TP\\nircmd.exe");
 	
-    ' Build screenshot filename: PROJECT\HARDCOPY\StationName-YYYY-MM-DD-HH-MM-SS.png
+    ' === BUILD SCREENSHOT COMMAND ===
+    ' File naming: PROJECT\HARDCOPY\StationName-YYYY-MM-DD-HH-MM-SS.png
+    ' Command: savescreenshot "<full_path_and_filename>" <left> <top> <right> <bottom>
 	Filename = ADDSTRING("savescreenshot ","\"",GETPROJECTDIR(),"\\HARDCOPY\\");
+	' Add station name prefix
 	Filename = ADDSTRING(Filename,@SYSTEM.STATION_NAME,"-");
+	' Add date/time stamp: YYYY-MM-DD-HH-MM-SS
 	Filename = ADDSTRING(FileName, TOC(DATETIME("YEAR")), "-" , TOC(DATETIME("MONTH")),"-",TOC(DATETIME("DAY")),"-",TOC(DATETIME("HOUR")));
 	Filename = ADDSTRING(FileName,"-",TOC(DATETIME("MINUTE")),"-",TOC(DATETIME("SECOND")),".png\"",);
 
@@ -704,7 +765,8 @@ Sub DualHardCopy()
     '---------------------------------------
 	IF (WINDOW("GETREGION",WINDOW("CURRENTNAME"),WINDOW("CURRENTBRANCH")) == 1) Then
 	
-		' Region 1 -> Primary monitor
+		' === REGION 1: PRIMARY MONITOR ===
+		' Coordinates: 0 0 1920 1080 (standard 1920x1080 resolution)
 		Filename = ADDSTRING(Filename, " 0 0 1920 1080");
 		APPLICATION ("LOAD" , PrintLink , FileName);
 		
@@ -712,7 +774,8 @@ Sub DualHardCopy()
 	
 		IF (WINDOW("GETREGION",WINDOW("CURRENTNAME"),WINDOW("CURRENTBRANCH")) == 2) Then
 		
-			' Region 2 -> Secondary monitor
+			' === REGION 2: SECONDARY MONITOR ===
+			' Coordinates: 1921 0 3840 1080 (second monitor, offset by 1920 pixels)
 			Filename = ADDSTRING(Filename, " 1921 0 3840 1080");
 			APPLICATION ("LOAD" , PrintLink , FileName);
 		END IF

@@ -10,15 +10,6 @@
 <DefaultValue>=Inst.FullBranch</DefaultValue>
 <EvaluationMode>1</EvaluationMode>
 </Parameter>
-<Parameter Name="pAllServerList">
-<nDataType>0</nDataType>
-<nType>0</nType>
-<DefaultValue/>
-<Empty>0</Empty>
-<SvPropertyValidation>true</SvPropertyValidation>
-<SvObjectType>1</SvObjectType>
-<SvPropertyName>ServerListName</SvPropertyName>
-</Parameter>
 <Parameter Name="pClientList">
 <nPType>1</nPType>
 <nDataType>0</nDataType>

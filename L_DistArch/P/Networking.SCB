@@ -1,42 +1,61 @@
 
+'---------------------------------------
+' RefreshStationVariables
+'---------------------------------------
+' Purpose:
+'   Fetches and updates all station monitoring variables for the target station.
+'   Constructs dynamic paths using the station name (ARG1) and retrieves system values.
+'---------------------------------------
 Sub RefreshStationVariables()
-DIM Var as str;
-DIM Var2 as str;
+DIM Var as str;        ' Temporary variable for constructing dynamic property paths
 
-	Var = AddString("@System.", GetArg("ARG1"), ".Resource.FreeVirtualMemory");
-	FreeVirtualMemory = ?Var;
+	' === LICENSE & SYSTEM INFO ===
 	Var = AddString("@System.", GetArg("ARG1"), ".Key.LicenseNumber");
-	LicenseNumber = ?Var;
+	LicenseNumber = ?Var;  ' License ID
+	
+	' === MIMIC SESSIONS ===
 	Var = AddString("@System.", GetArg("ARG1"), ".Mimic.OpenCount");
-	OpenMimicNumber = ?Var;
+	OpenMimicNumber = ?Var;  ' Number of active mimic screens
+	
+	' === SYSTEM RESOURCES (GDI, Handles, Memory, Threads, User Resources) ===
+	Var = AddString("@System.", GetArg("ARG1"), ".Resource.FreeVirtualMemory");
+	FreeVirtualMemory = ?Var;  ' Available virtual memory in MB
 	Var = AddString("@System.", GetArg("ARG1"), ".Resource.GDI");
-	GDI = ?Var;
+	GDI = ?Var;  ' GDI object count
 	Var = AddString("@System.", GetArg("ARG1"), ".Resource.Handles");
-	Handles = ?Var;
+	Handles = ?Var;  ' Open file handles count
 	Var = AddString("@System.", GetArg("ARG1"), ".Resource.RAM");
-	RAM = ?Var;
+	RAM = ?Var;  ' RAM utilization percentage
 	Var = AddString("@System.", GetArg("ARG1"), ".Resource.Threads");
-	Threads = ?Var;
+	Threads = ?Var;  ' Active thread count
 	Var = AddString("@System.", GetArg("ARG1"), ".Resource.User");
-	User = ?Var;
+	User = ?Var;  ' User object count
+	
+	' === USER INFORMATION ===
 	Var = AddString("@System.", GetArg("ARG1"), ".User1.FullAccountName");
-	UserConnected = ?Var;
+	UserConnected = ?Var;  ' Full user account name currently logged in
 	Var = AddString("@System.", GetArg("ARG1"), ".User1.Profile");
-	ProfileConnected = ?Var;
+	ProfileConnected = ?Var;  ' User profile path
+	
+	' === VERSION TRACKING (Project and Library versions) ===
 	Var = AddString("@System.", GetArg("ARG1"), ".Version.Project");
-	ProjectVersion = ?Var;
+	ProjectVersion = ?Var;  ' Current project version
 	Var = AddString("@System.", GetArg("ARG1"), ".Version.Library");
-	LibraryVersion = ?Var;
+	LibraryVersion = ?Var;  ' Current library version
+	
+	' === VERSION COMPARISON (Checks for mismatches between current and reference versions) ===
 	Var = AddString("@System.", GetArg("ARG1"), ".Version.PreReference.ProjectIsNotCurrentPreRef");
-	ProjectIsNotCurrentPreRef = ?Var;
+	ProjectIsNotCurrentPreRef = ?Var;  ' Flag: Project version differs from pre-reference
 	Var = AddString("@System.", GetArg("ARG1"), ".Version.Reference.ProjectIsNotCurrentRef");
-	ProjectIsNotCurrentRef = ?Var;
+	ProjectIsNotCurrentRef = ?Var;  ' Flag: Project version differs from reference
 	Var = AddString("@System.", GetArg("ARG1"), ".Version.PreReference.LibraryIsNotCurrentPreRef");
-	LibraryIsNotCurrentPreRef = ?Var;
+	LibraryIsNotCurrentPreRef = ?Var;  ' Flag: Library version differs from pre-reference
 	Var = AddString("@System.", GetArg("ARG1"), ".Version.Reference.LibraryIsNotCurrentRef");
-	LibraryIsNotCurrentRef = ?Var;
+	LibraryIsNotCurrentRef = ?Var;  ' Flag: Library version differs from reference
+	
+	' === ENVIRONMENT ===
 	Var = AddString("@System.", GetArg("ARG1"), ".Environment.ProductVersion");
-	SV_VERS = ?Var;
+	SV_VERS = ?Var;  ' SCADA product version
 	
 
 End Sub
@@ -45,19 +64,24 @@ End Sub
     ' Running mode update
     '-----------------------------------
 Sub RefreshRunningMode()
-    Dim RunService      As Double;
-    Dim RunRDS          As Double;
+    Dim RunService      As Double;  ' Flag: Running as Windows service (0=No, 1=Yes)
+    Dim RunRDS          As Double;  ' Flag: Running in Remote Desktop Session (0=No, 1=Yes)
 
+    ' Detect execution environment on local host
     RunService = TOD(@System.LocalHost.Environment.RunningAsService);
     RunRDS     = TOD(@System.LocalHost.Environment.RunningInRemoteDesktopSession);
 
-    ' Encode mode:
-    '   1 = Console
-    '   2 = Service
-    '   3 = RDS
+    ' Calculate running mode by encoding environment flags:
+    '   Base value = 1 (Console mode)
+    '   + RunService * 1 = +1 if running as Service (makes it 2)
+    '   + RunRDS * 2     = +2 if running in RDS (makes it 3)
+    ' Possible values:
+    '   1 = Console mode (standalone execution)
+    '   2 = Service mode (Windows service)
+    '   3 = RDS mode (Remote Desktop Session)
     RunningMode = (1 + (RunService * 1) + (RunRDS * 2));
-	Print("Running mode = ", (1 + (RunService * 1) + (RunRDS * 2)));
-	CyclicRunModeActiveBit = 0;
+	Print("Running mode = ", (1 + (RunService * 1) + (RunRDS * 2)));  ' Debug output
+	CyclicRunModeActiveBit = 0;  ' Reset active bit for next cycle
 End Sub
 
 
@@ -81,27 +105,26 @@ End Sub
 
 Sub S_Switch()
 
-    Dim cAssociation As Str;
-    Dim cStationName As Str;
-    Dim cMode        As Str;
-    Dim iReturn      As Integer;
+    Dim cAssociation As Str;       ' Real-time redundancy association name
+    Dim cStationName As Str;       ' Target station to switch
+    Dim cMode        As Str;       ' Desired mode: ACTIVE or PASSIVE
+    Dim iReturn      As Integer;   ' Return code from LAN command (unused in current implementation)
 
-    ' Retrieve arguments
+    ' Convert arguments to uppercase for case-insensitive comparison
     cAssociation = Ucase(GetArg("ARG1"));
     cStationName = Ucase(GetArg("ARG2"));
     cMode        = Ucase(GetArg("ARG3"));
     
     ' Switch based on requested mode
 	IF (CmpString (cMode, "ACTIVE") == 0) Then
-  
+    	' Activate this station for real-time redundancy
     	iReturn = LAN ("SET_SERVER_MODE", cAssociation, cStationName, "SET_SERVER_ACTIF");
-    
   	ELSE
-  
+    	' Set station to passive/standby mode
     	iReturn = LAN ("SET_SERVER_MODE", cAssociation, cStationName, "SET_SERVER_PASSIF");
-    
   	END IF
 
+  	' Log the switch operation for audit trail
   	TRACE("LOG", ADDSTRING("S_Switch: ", cAssociation, " station=", cStationName));
 
 End Sub
@@ -128,22 +151,27 @@ End Sub
 
 Sub S_Change_Avail()
 
-    Dim cAssociation      As Str;
-    Dim cStationName      As Str;
-    Dim cOtherStationName As Str;
-    Dim iReturn           As Integer;
+    Dim cAssociation      As Str;   ' Historical redundancy association name
+    Dim cStationName      As Str;   ' Primary/active station name
+    Dim cOtherStationName As Str;   ' Secondary/passive (hot-standby) station name
+    Dim iReturn           As Integer;  ' Return code from LAN commands
 
-    ' Retrieve arguments passed to this sub
+    ' Convert arguments to uppercase for case-insensitive comparison
     cAssociation      = Ucase(GetArg("ARG1"));
     cStationName      = Ucase(GetArg("ARG2"));
     cOtherStationName = Ucase(GetArg("ARG3"));
 
-	'LAN (Mode, AssocName, StationName, AvailableRate);
+	' === LOAD BALANCING SYNTAX ===
+	' LAN (Mode, AssocName, StationName, AvailableRate);
+	' AvailableRate: Percentage of historical data requests to send to this station
 
-	' Set availability: active = 100%, passive = 50%
-	LAN("SET_AVAILABLE_RATE", cAssociation, cStationName,100 );
-	LAN("SET_AVAILABLE_RATE", cAssociation, cOtherStationName,50 );
+	' Configure availability for load balancing:
+	' - Active station receives 100% of load (primary)
+	' - Passive station receives 50% of load (hot-standby, ready to take over)
+	LAN("SET_AVAILABLE_RATE", cAssociation, cStationName, 100 );      ' Primary at full capacity
+	LAN("SET_AVAILABLE_RATE", cAssociation, cOtherStationName, 50 );  ' Secondary as backup
 	
+	' Log the availability change for audit trail
 	TRACE("LOG", ADDSTRING("H_Switch: ", cAssociation, " active=", cStationName, " passive=", cOtherStationName));
 	
 End Sub
