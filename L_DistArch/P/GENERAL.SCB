@@ -75,7 +75,11 @@ Dim lngBufFile as Long;
 Dim lngBuffer2 as Long;
 Dim i as Integer;
 
-	FileName = Left(GetProjectDir(), Len(GetProjectDir()) - 4 - Len(SvProjectName)); ' {data} folder (usr, etc, lib, databases.)
+	If (@System.LocalHost.Environment.RunningInRemoteDesktopSession == 1) Then ' WTS\USR\ to remove
+		FileName = Left(GetProjectDir(), Len(GetProjectDir()) - 8 - Len(SvProjectName)); ' {data} folder (usr, etc, lib, databases.)		
+	Else 'USR\ to remove
+		FileName = Left(GetProjectDir(), Len(GetProjectDir()) - 4 - Len(SvProjectName)); ' {data} folder (usr, etc, lib, databases.)	
+	End If
 	FileName = AddString(FileName, "etc\\ini.dat");
 
 	lngBufFile = FileToBuf(FileName);
