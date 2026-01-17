@@ -10,6 +10,12 @@
 <DefaultValue>=Inst.FullBranch</DefaultValue>
 <EvaluationMode>1</EvaluationMode>
 </Parameter>
+<Parameter Name="AssocNumber">
+<nDataType>0</nDataType>
+<nType>0</nType>
+<DefaultValue/>
+<Empty>1</Empty>
+</Parameter>
 <Parameter Name="pClientList">
 <nPType>1</nPType>
 <nDataType>0</nDataType>
@@ -29,6 +35,12 @@
 <SvPropertyValidation>true</SvPropertyValidation>
 <SvObjectType>25</SvObjectType>
 <SvPropertyName>ServerListName</SvPropertyName>
+</Parameter>
+<Parameter Name="StationNumber">
+<nDataType>0</nDataType>
+<nType>0</nType>
+<DefaultValue/>
+<Empty>1</Empty>
 </Parameter>
 <Parameter Name="VarClientList">
 <nPType>1</nPType>

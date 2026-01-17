@@ -161,7 +161,13 @@
 <AutoNaming_FixedDigits>1</AutoNaming_FixedDigits>
 <AutoNaming_Step>1</AutoNaming_Step>
 <Enable_Instance>true</Enable_Instance>
-<ParametersList/>
+<ParametersList>
+<ParameterInstance Name="L_DistArch/AssocNumber">
+<DescriptionLang1>AssocNumber</DescriptionLang1>
+<DescriptionLang2>AssocNumber</DescriptionLang2>
+<Value/>
+</ParameterInstance>
+</ParametersList>
 <TemplatesList/>
 <ObjectsList/>
 <InheritedTemplatesList/>
@@ -174,7 +180,13 @@
 <AutoNaming_FixedDigits>1</AutoNaming_FixedDigits>
 <AutoNaming_Step>1</AutoNaming_Step>
 <Enable_Instance>true</Enable_Instance>
-<ParametersList/>
+<ParametersList>
+<ParameterInstance Name="L_DistArch/AssocNumber">
+<DescriptionLang1>AssocNumber</DescriptionLang1>
+<DescriptionLang2>AssocNumber</DescriptionLang2>
+<Value/>
+</ParameterInstance>
+</ParametersList>
 <TemplatesList/>
 <ObjectsList/>
 <InheritedTemplatesList/>
@@ -186,6 +198,11 @@
 <AutoNaming_Step>1</AutoNaming_Step>
 <Enable_Instance>true</Enable_Instance>
 <ParametersList>
+<ParameterInstance Name="L_DistArch/StationNumber">
+<DescriptionLang1>StationNumber</DescriptionLang1>
+<DescriptionLang2>StationNumber</DescriptionLang2>
+<Value/>
+</ParameterInstance>
 <ParameterInstance Name="L_DistArch/VarServerLocalList">
 <DescriptionLang1>VarServerLocalList</DescriptionLang1>
 <DescriptionLang2>VarServerLocalList</DescriptionLang2>
@@ -366,6 +383,50 @@
 <ParametersList/>
 <TemplatesList/>
 <ObjectsList>
+<Object Name="Active_number">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="MaximumValue" Reset="false" Substitute="false">4194304</Property>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="@SYSTEM." + Params("L_DistArch/AssocNumber") + "." + Params("L_DistArch/StationNumber") + ".Active_number"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+<Object Name="AvailableRate">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="MaximumValue" Reset="false" Substitute="false">4194304</Property>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="@SYSTEM." + Params("L_DistArch/AssocNumber") + "." + Params("L_DistArch/StationNumber") + ".AvailableRate"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
 <Object Name="LocalHost">
 <InternalType>2</InternalType>
 <SvType>1</SvType>
@@ -385,6 +446,25 @@
 </Object>
 </ObjectsList>
 </Object>
+<Object Name="Passive_completed">
+<InternalType>2</InternalType>
+<SvType>1</SvType>
+<ObjectItem SubType="">
+<Properties/>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="@SYSTEM." + Params("L_DistArch/AssocNumber") + "." + Params("L_DistArch/StationNumber") + ".Switch.Passive_completed"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
 <Object Name="RedondanceStatus">
 <DescriptionLang1>Desc RedondanceStatus</DescriptionLang1>
 <InternalType>4</InternalType>
@@ -395,6 +475,30 @@
 </Properties>
 </ObjectItem>
 <ObjectsList/>
+</Object>
+<Object Name="TimeToSwitchPassive">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Chronometer">
+<InternalType>5</InternalType>
+<SvType>15</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Chrono" Reset="false" Substitute="false">-1</Property>
+<Property id="Chrono_EnableBitName" Reset="false" Substitute="true">=Inst.FullBranch + ".Passive_completed"</Property>
+<Property id="Chrono_EnableBitTransition" Reset="false" Substitute="false">0</Property>
+<Property id="Chrono_ResetBitName" Reset="false" Substitute="true">=Inst.FullBranch + ".LocalHost"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
 </Object>
 </ObjectsList>
 <InheritedTemplatesList/>
@@ -407,7 +511,13 @@
 <AutoNaming_FixedDigits>1</AutoNaming_FixedDigits>
 <AutoNaming_Step>1</AutoNaming_Step>
 <Enable_Instance>true</Enable_Instance>
-<ParametersList/>
+<ParametersList>
+<ParameterInstance Name="L_DistArch/StationNumber">
+<DescriptionLang1>StationNumber</DescriptionLang1>
+<DescriptionLang2>StationNumber</DescriptionLang2>
+<Value/>
+</ParameterInstance>
+</ParametersList>
 <TemplatesList/>
 <ObjectsList>
 <Object Name="BUZZER">
@@ -1174,6 +1284,11 @@
 <AutoNaming_Step>1</AutoNaming_Step>
 <Enable_Instance>true</Enable_Instance>
 <ParametersList>
+<ParameterInstance Name="L_DistArch/StationNumber">
+<DescriptionLang1>StationNumber</DescriptionLang1>
+<DescriptionLang2>StationNumber</DescriptionLang2>
+<Value/>
+</ParameterInstance>
 <ParameterInstance Name="L_DistArch/VarServerLocalList">
 <DescriptionLang1>VarServerLocalList</DescriptionLang1>
 <DescriptionLang2>VarServerLocalList</DescriptionLang2>
@@ -2113,6 +2228,50 @@
 <ParametersList/>
 <TemplatesList/>
 <ObjectsList>
+<Object Name="Active_number">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="MaximumValue" Reset="false" Substitute="false">4194304</Property>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="@SYSTEM." + Params("L_DistArch/AssocNumber") + "." + Params("L_DistArch/StationNumber") + ".Active_number"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
+<Object Name="AvailableRate">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="MaximumValue" Reset="false" Substitute="false">4194304</Property>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="@SYSTEM." + Params("L_DistArch/AssocNumber") + "." + Params("L_DistArch/StationNumber") + ".AvailableRate"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
 <Object Name="LocalHost">
 <InternalType>2</InternalType>
 <SvType>1</SvType>
@@ -2132,6 +2291,25 @@
 </Object>
 </ObjectsList>
 </Object>
+<Object Name="Passive_completed">
+<InternalType>2</InternalType>
+<SvType>1</SvType>
+<ObjectItem SubType="">
+<Properties/>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Expression01">
+<InternalType>5</InternalType>
+<SvType>19</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Expression" Reset="false" Substitute="true">="@SYSTEM." + Params("L_DistArch/AssocNumber") + "." + Params("L_DistArch/StationNumber") + ".Switch.Passive_completed"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
+</Object>
 <Object Name="RedondanceStatus">
 <DescriptionLang1>Desc RedondanceStatus</DescriptionLang1>
 <InternalType>4</InternalType>
@@ -2142,6 +2320,30 @@
 </Properties>
 </ObjectItem>
 <ObjectsList/>
+</Object>
+<Object Name="TimeToSwitchPassive">
+<InternalType>2</InternalType>
+<SvType>2</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Type" Reset="false" Substitute="false">2</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList>
+<Object Name="Chronometer">
+<InternalType>5</InternalType>
+<SvType>15</SvType>
+<ObjectItem SubType="">
+<Properties>
+<Property id="Chrono" Reset="false" Substitute="false">-1</Property>
+<Property id="Chrono_EnableBitName" Reset="false" Substitute="true">=Inst.FullBranch + ".Passive_completed"</Property>
+<Property id="Chrono_EnableBitTransition" Reset="false" Substitute="false">0</Property>
+<Property id="Chrono_ResetBitName" Reset="false" Substitute="true">=Inst.FullBranch + ".LocalHost"</Property>
+</Properties>
+</ObjectItem>
+<ObjectsList/>
+</Object>
+</ObjectsList>
 </Object>
 </ObjectsList>
 <InheritedTemplatesList/>

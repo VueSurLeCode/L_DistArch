@@ -1,0 +1,182 @@
+ASCII32
+W,BEGIN,"Assoc.mmc","Mimic1","Architecture.DAS_ASSOC1.DATASERVER2"
+	TEMPLATE,"",0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+	POSITION,893,473
+	SIZE,474,307,800,600,0,0,0,1858,1024,454,264
+	BACKCOLOREX,45,45,45,0,0,0
+	TITLE,1,"#B","#B"
+	STYLE,1,1,1,1,0,1,0,1,1,1,1,1,1,0,0,0,0
+	GRIDEX,1,1,8,8,100,100,100,0,0,0
+	LAYERS,65535
+	RIGHTS,0,1,0.000000,64.000000,1,65535,0,0
+	INCLUDED,0,3,0,0,0
+	LINK,1,"","","",""
+	LINK,2,"","","",""
+	LINK,3,"","","",""
+	LINK,4,"","","",""
+	LINK,5,"","","",""
+	LINK,6,"","","",""
+	LINK,7,"","","",""
+	LINK,8,"","","",""
+	LINK,9,"","","",""
+	LINK,10,"","","",""
+	TABS,0,3,0,0,500,500,0,0,-1,3,16,16,0,FONT,1,FONT,1
+	NAV,0,0,0,100,100,0,0
+	BACKBMP,"",0,0
+	BACKOBJECT,"",0,0
+	BEFORE_OPEN,"","","",""
+	BEFORE_CLOSE,"","","",""
+	EVENTS,1
+	BINOBJ,"Assoc.mmc.binary"
+W,END
+VBA_REFERENCES,BEGIN
+	"stdole", 2, 0, "{00020430-0000-0000-C000-000000000046}"
+VBA_REFERENCES,END
+FONTS,BEGIN
+	FONT,1,16,7,700,0,0,"System",0,0
+	FONT,2,-21,0,400,0,0,"Arial",0,1
+FONTS,END
+COLORS,BEGIN
+	COLOREX,1,0,0,0,0,203,0
+	COLOREX,2,0,0,0,0,0,0
+	COLOREX,3,0,0,0,0,0,1
+	COLOREX,4,192,192,192,0,0,0
+	COLOREX,5,0,255,0,0,0,0
+	COLOREX,6,255,0,255,0,0,0
+	COLOREX,7,0,0,64,0,0,0
+	COLOREX,8,255,255,0,0,0,0
+COLORS,END
+O,BEGIN,T,"Text1"
+	B,96,0,284,24,96,0,1,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	PP,1,96,0,0,0,FONT,2,"Station name",37,FONT,2,"Station name",37
+	A,BEGIN,DL,"Anim1",0,0,"@#T","","0", , 
+		PP,"LocalHost",2,"#B3",0
+	A,END
+O,END
+O,BEGIN,T,"Text4"
+	B,8,128,282,152,8,128,1,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	PP,0,8,128,0,0,FONT,2,"Number of remote stations",37,FONT,2,"Nombre de postes connect‚s",37
+O,END
+O,BEGIN,T,"Text5"
+	B,8,160,198,184,8,160,1,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	PP,0,8,160,0,0,FONT,2,"The available rate",37,FONT,2,"Taux de disponibilit‚",37
+O,END
+O,BEGIN,GRP,"Group2"
+	B,8,96,440,120,8,96,65535,0,6400,0,1,0,0,0,1,0,-1
+	O,BEGIN,T,"Text7"
+		B,8,96,192,120,8,96,1,0,6400,0,2,0,0,0,1,0,-1
+		ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+		PP,1,8,96,0,0,FONT,2,"Active since",36,FONT,2,"Actif depuis",36
+	O,END
+	O,BEGIN,T,"Text8"
+		B,241,96,440,120,241,96,1,0,6400,0,2,0,0,0,1,0,-1
+		ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+		PP,1,241,96,0,0,FONT,2,"Value",38,FONT,2,"xxxxxxxx",38
+		A,BEGIN,DR,"Anim1",0,0,"","","0", , 
+			PP,"LocalHost.#_T","",0
+			ADVFORMAT2,2,"hh:nn:ss dd/mm/yy@t"
+		A,END
+	O,END
+	A,BEGIN,VB,"Anim1",0,0,"","","0", , 
+		PP,"LocalHost",1,2,0,1,1,0,1,2,0
+	A,END
+O,END
+O,BEGIN,T,"Text19"
+	B,360,128,441,152,360,128,1,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	PP,1,360,128,0,0,FONT,2,"Value",37,FONT,2,"xxxxxxxx",38
+	A,BEGIN,DR,"Anim1",0,0,"","","0", , 
+		PP,"Active_number","",0
+	A,END
+O,END
+O,BEGIN,T,"Text20"
+	B,360,160,441,184,360,160,1,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	PP,1,360,160,0,0,FONT,2,"Value",37,FONT,2,"xxxxxxxx",38
+	A,BEGIN,DR,"Anim1",0,0,"","","0", , 
+		PP,"AvailableRate","",0
+	A,END
+O,END
+O,BEGIN,E,"Shape1"
+	B,40,40,8,8,40,40,65535,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	A,BEGIN,CB,"Anim1",0,0,"","","0", , 
+		PP,"LocalHost"
+		COL,1,COLOR,4,COLOR,4
+		COL,1,COLOR,5,COLOR,5
+		COL,1,COLOR,6,COLOR,6
+		COL,1,COLOR,7,COLOR,7
+		COL,1,COLOR,7,COLOR,7
+		COL,1,COLOR,7,COLOR,7
+	A,END
+O,END
+O,BEGIN,GRP,"Group4"
+	B,8,192,440,216,8,192,65535,0,6400,0,1,0,0,0,1,0,-1
+	O,BEGIN,T,"Text6"
+		B,8,192,192,216,8,192,1,0,6400,0,2,0,0,0,1,0,-1
+		ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+		PP,1,8,192,0,0,FONT,2,"Passive since",36,FONT,2,"Passif depuis",36
+	O,END
+	O,BEGIN,T,"Text22"
+		B,241,192,440,216,241,192,1,0,6400,0,2,0,0,0,1,0,-1
+		ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+		PP,1,241,192,0,0,FONT,2,"Value",38,FONT,2,"xxxxxxxx",38
+		A,BEGIN,DR,"Anim1",0,0,"","","0", , 
+			PP,"Passive_completed.#_T","",0
+			ADVFORMAT2,2,"hh:nn:ss dd/mm/yy@t"
+		A,END
+	O,END
+	A,BEGIN,VB,"Anim1",0,0,"","","0", , 
+		PP,"LocalHost",1,1,0,1,2,0,1,2,0
+	A,END
+O,END
+O,BEGIN,T,"Text2"
+	B,8,64,363,88,8,64,1,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	PP,0,8,64,0,0,FONT,2,"Association information",37,FONT,2,"Informations … propos de l'association",37
+O,END
+O,BEGIN,T,"Text3"
+	B,96,24,284,48,96,24,1,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	PP,1,96,24,0,0,FONT,2,"Assoc name",37,FONT,2,"Station name",37
+	A,BEGIN,DL,"Anim1",0,0,"@#T","","0", , 
+		PP,"LocalHost",2,"#B2",0
+	A,END
+O,END
+O,BEGIN,T,"Text10"
+	B,8,96,278,120,8,96,1,0,6400,0,1,0,0,0,1,0,-1
+	ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+	PP,0,8,96,0,0,FONT,2,"Switch passive in progress",37,FONT,2,"Basculement passif en cours",37
+	A,BEGIN,CB,"Anim1",0,0,"","","0", , 
+		PP,"Passive_completed"
+		COL,1,COLOR,5,COLOR,8
+		COL,1,COLOR,3,COLOR,3
+		COL,1,COLOR,3,COLOR,3
+		COL,1,COLOR,2,COLOR,2
+		COL,1,COLOR,3,COLOR,3
+		COL,1,COLOR,3,COLOR,3
+	A,END
+O,END
+O,BEGIN,GRP,"Group5"
+	B,8,224,440,248,8,224,65535,0,6400,0,1,0,0,0,1,0,-1
+	O,BEGIN,T,"Text6"
+		B,8,224,272,248,8,224,1,0,6400,0,2,0,0,0,1,0,-1
+		ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+		PP,1,8,224,0,0,FONT,2,"Time to become passive",36,FONT,2,"Temps pour devenir passif",36
+	O,END
+	O,BEGIN,T,"Text22"
+		B,312,224,440,248,312,224,1,0,6400,0,2,0,0,0,1,0,-1
+		ST,0,1,COLOR,1,COLOR,1,0,0,COLOR,3,0,COLOR,3,0,COLOR,2,0,COLOR,2
+		PP,1,312,224,0,0,FONT,2,"Value",38,FONT,2,"xxxxxxxx",38
+		A,BEGIN,DR,"Anim1",0,0,"","","0", , 
+			PP,"TimeToSwitchPassive","",0
+			ADVFORMAT2,2,"[hh]:nn:ss@s"
+		A,END
+	O,END
+	A,BEGIN,VB,"Anim1",0,0,"","","0", , 
+		PP,"LocalHost",1,1,0,1,2,0,1,2,0
+	A,END
+O,END
