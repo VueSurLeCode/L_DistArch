@@ -31,7 +31,7 @@
 <nDataType>0</nDataType>
 <nType>0</nType>
 <DefaultValue/>
-<Empty>0</Empty>
+<Empty>1</Empty>
 <SvPropertyValidation>true</SvPropertyValidation>
 <SvObjectType>25</SvObjectType>
 <SvPropertyName>ServerListName</SvPropertyName>

@@ -471,7 +471,7 @@
 <SvType>5</SvType>
 <ObjectItem SubType="">
 <Properties>
-<Property id="SymbolTemplate_Name" Reset="false" Substitute="false">L_DistArch/RedondantServer.sym</Property>
+<Property id="SymbolTemplate_Name" Reset="false" Substitute="false">L_DistArch/RedondantHDS.sym</Property>
 </Properties>
 </ObjectItem>
 <ObjectsList/>
@@ -2316,7 +2316,7 @@
 <SvType>5</SvType>
 <ObjectItem SubType="">
 <Properties>
-<Property id="SymbolTemplate_Name" Reset="false" Substitute="false">L_DistArch/RedondantServer.sym</Property>
+<Property id="SymbolTemplate_Name" Reset="false" Substitute="false">L_DistArch/RedondantDAS.sym</Property>
 </Properties>
 </ObjectItem>
 <ObjectsList/>
